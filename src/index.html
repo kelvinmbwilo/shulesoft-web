@@ -2,15 +2,181 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>ShulesoftFrontendNew</title>
+  <title>ShuleSoft</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#25B99A">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png">
+  <style>
+    @font-face {
+      font-family: Scorecard-Averta;
+      font-style: normal;
+      font-weight: 400;
+      src: url(assets/fonts/averta-regular.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: Scorecard-Averta;
+      font-style: normal;
+      font-weight: 700;
+      src: url(assets/fonts/averta-bold.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: CMSansSerif;
+      font-style: normal;
+      font-weight: 700;
+      src: url(assets/fonts/averta-bold.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: Montserrat;
+      font-style: normal;
+      src: url(assets/fonts/Montserrat-Regular.ttf) format("tff");
+    }
+    body * {
+      /*font-family: Scorecard-Averta, sans-serif, appleLogo;*/
+      font-family: Montserrat, sans-serif, appleLogo;
+    }
+    .main-area {
+      width: 100%;
+      display: grid;
+      align-content: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 20px;
+      color: var(--textcolor)!important;
+
+
+    }
+    .logo-area {
+      width: 100%;
+      display: grid;
+      align-content: center;
+      justify-content: center;
+      text-align: center;
+
+    }
+
+    .features {
+      width: 100%;
+      margin-top: 30px;
+      display: grid;
+      align-content: center;
+      justify-content: center;
+
+      color: var(--textcolor) !important;
+    }
+    .feature-area {
+      width: 800px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-gap: 50px;
+    }
+    .feature {
+      height: 80px;
+      display: grid;
+      align-content: center;
+      justify-content: center;
+    }
+    .feature div {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .feature div mat-icon {
+    //color: var(--textcolor);
+      height: 40px;
+      width: 40px;
+    }
+
+    .loading-area {
+      width: 100%;
+      display: grid;
+      align-content: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .loading-area div {
+      display: grid;
+      align-content: center;
+      justify-content: center;
+    }
+
+  </style>
 </head>
 <body class="mat-typography">
-  <app-root></app-root>
+<app-root>
+  <div class="logo-area">
+    <img alt="ShuleSoft logo" src="assets/icons/icon-120x120.png">
+  </div>
+  <div class="main-area">
+    <h1>ShuleSoft</h1>
+    <h3>School Information Management System</h3>
+  </div>
+
+  <div class="features">
+
+    <div class="feature-area">
+      <div class="feature">
+        <div>
+          <mat-icon svgIcon="academics"></mat-icon>
+        </div>
+        <div>
+          <h3>Academics</h3>
+        </div>
+      </div>
+      <div class="feature">
+        <div>
+          <mat-icon svgIcon="teaching"></mat-icon>
+        </div>
+        <div>
+          <h3>Teachers & Students</h3>
+        </div>
+      </div>
+      <div class="feature">
+        <div>
+          <mat-icon svgIcon="finance"></mat-icon>
+        </div>
+        <div>
+          <h3>Finance Management</h3>
+        </div>
+      </div>
+      <div class="feature">
+        <div>
+          <mat-icon svgIcon="school-bus"></mat-icon>
+        </div>
+        <div>
+          <h3>Hostel & Transport</h3>
+        </div>
+      </div>
+      <div class="feature">
+        <div>
+          <mat-icon svgIcon="summary"></mat-icon>
+        </div>
+        <div>
+          <h3>Summary and Reports</h3>
+        </div>
+      </div>
+      <div class="feature">
+        <div>
+          <mat-icon svgIcon="digital-learning"></mat-icon>
+        </div>
+        <div>
+          <h3>Digital Learning</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-area">
+    <div>
+      <img alt="loading" src="assets/images/loading.gif" style="height: 50px;">
+    </div>
+    <div>
+      Preparing system information...
+    </div>
+  </div>
+</app-root>
+<noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
 </html>

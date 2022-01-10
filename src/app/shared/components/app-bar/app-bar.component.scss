@@ -1,0 +1,89 @@
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+.institution-header {
+  display: inline-block;
+  margin-left: 18px;
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+.user-area {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.user-title {
+  font-size: 11px;
+}
+.user-email {
+  font-size: 10px;
+}
+
+.user-details {
+  border-left: 1px solid rgba(0,0,0,0.1);
+  border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+.img {
+  border-radius: 50%;
+  height: 30px!important;
+  margin-right: 5px;
+
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.mat-list-item-content {
+  padding: 0!important;
+}
+//
+//.menu-trigger {
+//  margin-right: 5px;
+//  cursor: pointer;
+//  transition: all 0.3s cubic-bezier(.25, .8, .25, 1) !important;
+//}
+//
+//.menu-trigger:hover {
+//  transform: scale(1.04) !important;
+//
+//  background-color: rgba(255, 255, 255, 0.1) !important;
+//  //border-bottom: 3px solid #00405d;
+//}
+
+button.active.focus, button.active:focus,
+button.focus, button:active.focus,
+button:active:focus, button:focus {
+  outline: none!important;
+  box-shadow: none!important;
+}
+.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+  right: -10px;
+}
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -6px;
+}
+.mat-badge-medium .mat-badge-content {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+.material-icons {
+  font-size: 20px;
+}
+
+.mat-icon-button{
+  border-right: 2px solid #b1b1b1;
+  border-radius: 0;
+  font-size: 10px;
+  margin-right: 5px;
+}
+.mat-menu-item{
+  width: 100%;
+}

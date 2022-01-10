@@ -1,0 +1,81 @@
+<nav class="main-nav mat-elevation-z6">
+  <mat-toolbar class="toolbar no-print" style="color: white; background-color: #00405d">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="onToggleSidenav()"
+            *ngIf="(isHandset$ | async) && !usedInApps">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+
+    <span class="secondary-color">
+      <img [src]="schoolLogo"
+           style="height: auto; width: 50px; margin-bottom: 2px; margin-left: 10px; border-radius: 50%">
+    </span>
+    <span class="institution-header">
+      {{schoolName}}
+    </span>
+
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space"></span>
+
+    <mat-menu #appMenu="matMenu" class="profile-menu">
+      <button mat-menu-item>
+        <mat-icon>person_outline</mat-icon> Profile
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>help_outline</mat-icon> User Manual
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>lock_open</mat-icon> Logout
+      </button>
+<!--      <mat-list>-->
+<!--        <mat-list-item>-->
+<!--          <a routerLink="/erp-general/profile" mat-menu-item>-->
+<!--            <mat-icon>person_outline</mat-icon> Profile-->
+<!--          </a>-->
+<!--        </mat-list-item>-->
+<!--        <mat-divider></mat-divider>-->
+<!--        <mat-list-item>-->
+<!--          <a mat-menu-item>-->
+<!--            <mat-icon>help_outline</mat-icon> User Manual-->
+<!--          </a>-->
+<!--        </mat-list-item>-->
+<!--        <mat-divider></mat-divider>-->
+<!--        <mat-list-item>-->
+<!--          <a routerLink="/logout" mat-menu-item>-->
+<!--            <mat-icon>lock_open</mat-icon> Logout-->
+<!--          </a>-->
+<!--        </mat-list-item>-->
+<!--        <mat-divider></mat-divider>-->
+<!--        <mat-list-item>-->
+<!--          <div style="padding: 20px">-->
+<!--            <h6 style="margin-bottom: 0px" *ngIf="userName">{{ userName | titlecase }}</h6>-->
+<!--            <p style="margin-bottom: 0px; font-size:10px" *ngIf="email">{{ email }}</p>-->
+<!--          </div>-->
+<!--        </mat-list-item>-->
+<!--      </mat-list>-->
+
+    </mat-menu>
+
+
+    <!--    Notifications-->
+    <mat-menu #notification="matMenu" class="menu-items">
+      <app-notifications [notifications]="[]" [total]="0"></app-notifications>
+    </mat-menu>
+
+    <button style="min-width: 50px;" class="menu-trigger" title="See your Notifications" mat-icon-button
+            [matMenuTriggerFor]="notification">
+      <mat-icon [matBadge]="0" matBadgeSize="small" matBadgeColor="warn" matBadgePosition="above after"
+                style="margin-right: 12px;" [svgIcon]="'notification'"></mat-icon>
+    </button>
+
+
+    <button title="User Options" mat-button [matMenuTriggerFor]="appMenu" class="user-details">
+      <span class="user-title">
+        <img class="img" *ngIf="userPhoto" src="{{ userPhoto }}">
+        <span class="user-title">{{ userName | titlecase }}</span>
+      </span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+  </mat-toolbar>
+</nav>
