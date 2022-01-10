@@ -1,39 +1,86 @@
-
+@use "styles/variables";
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
+@use 'styles/palette' as palette;
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$shulesoft-frontend-new-primary: mat.define-palette(mat.$indigo-palette);
-$shulesoft-frontend-new-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$shulesoft-frontend-primary: mat.define-palette(palette.$primary-pat);
+$shulesoft-frontend-accent: mat.define-palette(palette.$accent-pat, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$shulesoft-frontend-new-warn: mat.define-palette(mat.$red-palette);
+$shulesoft-frontend-warn: mat.define-palette(palette.$warn-pat);
+$ng-material-tailwind-typography: mat.define-typography-config(
+  $font-family: theme("fontFamily.sans")
+);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$shulesoft-frontend-new-theme: mat.define-light-theme((
+$shulesoft-frontend-theme: mat.define-light-theme((
   color: (
-    primary: $shulesoft-frontend-new-primary,
-    accent: $shulesoft-frontend-new-accent,
-    warn: $shulesoft-frontend-new-warn,
-  )
+    primary: $shulesoft-frontend-primary,
+    accent: $shulesoft-frontend-accent,
+    warn: $shulesoft-frontend-warn,
+  ),
+  typography: $ng-material-tailwind-typography
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($shulesoft-frontend-new-theme);
+.light-theme {
+  $shule-soft-front-end-light-theme: mat.define-light-theme((
+    color: (
+      primary: $shulesoft-frontend-primary,
+      accent: $shulesoft-frontend-accent,
+      warn: $shulesoft-frontend-warn,
+    ),
+  typography: $ng-material-tailwind-typography
+  ));
+  @include mat.all-component-themes($shule-soft-front-end-light-theme);
+  @include mat.all-component-typographies($shulesoft-frontend-theme);
+  $fg_palette:map-get($shule-soft-front-end-light-theme, foreground);
+  $bg_palette:map-get($shule-soft-front-end-light-theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+  --textcolor: #0e3b40;
+  --secondary-textcolor: rgba(14, 59, 64, 0.67);
+  --fg: #{$fg};
+  --bg: #{$bg};
+
+  color: var(--textcolor) !important;
+}
+
+.dark-theme {
+  $shule-soft-front-end-dark-theme: mat.define-dark-theme((
+    color: (
+      primary: $shulesoft-frontend-primary,
+      accent: $shulesoft-frontend-accent,
+      warn: $shulesoft-frontend-warn,
+    ),
+    typography: $ng-material-tailwind-typography
+  ));
+  @include mat.all-component-themes($shule-soft-front-end-dark-theme);
+  @include mat.all-component-typographies($shulesoft-frontend-theme);
+  $fg_palette:map-get($shule-soft-front-end-dark-theme, foreground);
+  $bg_palette:map-get($shule-soft-front-end-dark-theme, background);
+  $fg:map-get($fg_palette, text);
+  $bg:map-get($bg_palette, background);
+
+  --textcolor: #b2f7ff;
+  --secondary-textcolor: rgba(178, 247, 255, 0.66);
+  --fg: #{$fg};
+  --bg: #{$bg};
+  color: var(--textcolor) !important;
+}
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { @apply h-full; }
+body { @apply m-0 font-sans }

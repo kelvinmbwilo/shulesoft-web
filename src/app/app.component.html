@@ -1,71 +1,9 @@
-<div class="logo-area">
-  <img alt="ShuleSoft logo" src="assets/icons/icon-144x144.png">
+<div class="mat-app-background h-full">
+    <div>
+      <mat-icon class="mr-8">brightness_5</mat-icon>
+      <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+      </mat-slide-toggle>
+      <mat-icon>bedtime</mat-icon>
+    </div>
+  <router-outlet></router-outlet>
 </div>
-<div class="main-area">
-  <h1>ShuleSoft</h1>
-  <h3>School Information Management System</h3>
-</div>
-
-<div class="features">
-
-  <div class="feature-area">
-    <div class="feature">
-      <div>
-        <mat-icon svgIcon="academics"></mat-icon>
-      </div>
-      <div>
-        <h3>Academics</h3>
-      </div>
-    </div>
-    <div class="feature">
-      <div>
-        <mat-icon svgIcon="teaching"></mat-icon>
-      </div>
-      <div>
-        <h3>Teachers & Students</h3>
-      </div>
-    </div>
-    <div class="feature">
-      <div>
-        <mat-icon svgIcon="finance"></mat-icon>
-      </div>
-      <div>
-        <h3>Finance Management</h3>
-      </div>
-    </div>
-    <div class="feature">
-      <div>
-        <mat-icon svgIcon="school-bus"></mat-icon>
-      </div>
-      <div>
-        <h3>Hostel & Transport</h3>
-      </div>
-    </div>
-    <div class="feature">
-      <div>
-        <mat-icon svgIcon="summary"></mat-icon>
-      </div>
-      <div>
-        <h3>Summary and Reports</h3>
-      </div>
-    </div>
-    <div class="feature">
-      <div>
-        <mat-icon svgIcon="digital-learning"></mat-icon>
-      </div>
-      <div>
-        <h3>Digital Learning</h3>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="loading-area">
-  <div>
-    <img alt="loading" src="assets/images/loading.gif" style="height: 50px;">
-  </div>
-  <div>
-    Preparing system information...
-  </div>
-</div>
-<router-outlet></router-outlet>
