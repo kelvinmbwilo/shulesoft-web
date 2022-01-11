@@ -33,6 +33,8 @@ $shulesoft-frontend-theme: mat.define-light-theme((
   ),
   typography: $ng-material-tailwind-typography
 ));
+@include mat.all-component-themes($shulesoft-frontend-theme);
+@include mat.all-component-typographies($shulesoft-frontend-theme);
 
 .light-theme {
   $shule-soft-front-end-light-theme: mat.define-light-theme((
@@ -43,18 +45,13 @@ $shulesoft-frontend-theme: mat.define-light-theme((
     ),
   typography: $ng-material-tailwind-typography
   ));
-  @include mat.all-component-themes($shule-soft-front-end-light-theme);
-  @include mat.all-component-typographies($shulesoft-frontend-theme);
+  @include mat.all-component-colors($shule-soft-front-end-light-theme);
   $fg_palette:map-get($shule-soft-front-end-light-theme, foreground);
   $bg_palette:map-get($shule-soft-front-end-light-theme, background);
   $fg:map-get($fg_palette, text);
   $bg:map-get($bg_palette, background);
-  --textcolor: #0e3b40;
-  --secondary-textcolor: rgba(14, 59, 64, 0.67);
   --fg: #{$fg};
   --bg: #{$bg};
-
-  color: var(--textcolor) !important;
 }
 
 .dark-theme {
@@ -66,21 +63,87 @@ $shulesoft-frontend-theme: mat.define-light-theme((
     ),
     typography: $ng-material-tailwind-typography
   ));
-  @include mat.all-component-themes($shule-soft-front-end-dark-theme);
-  @include mat.all-component-typographies($shulesoft-frontend-theme);
+  @include mat.all-component-colors($shule-soft-front-end-dark-theme);
   $fg_palette:map-get($shule-soft-front-end-dark-theme, foreground);
   $bg_palette:map-get($shule-soft-front-end-dark-theme, background);
   $fg:map-get($fg_palette, text);
   $bg:map-get($bg_palette, background);
-
-  --textcolor: #b2f7ff;
-  --secondary-textcolor: rgba(178, 247, 255, 0.66);
   --fg: #{$fg};
   --bg: #{$bg};
-  color: var(--textcolor) !important;
 }
 
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'),
+  local('MaterialIcons-Regular'),
+  url(assets/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
 
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/* You can add global styles to this file, and also import other style files */
 html, body { @apply h-full; }
-body { @apply m-0 font-sans }
+body { @apply m-0 font-sans text-word-primary }
+
+/* to make sure form field takes all the width */
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 10px 0 10px 0 !important;
+}
+
+.mat-form-field {
+  width: 100% !important;
+}
+
+.search-area {
+  .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 !important;
+    margin-bottom: 5px !important;
+    padding-left: 50px;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: var(--textcolor);
+  }
+
+  .mat-form-field-outline-start {
+    border-radius: 28px 0 0 28px !important;
+     min-width: 78px !important;
+  }
+  .mat-form-field-outline-end {
+    border-radius: 0 28px 28px 0 !important;
+  }
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 80px!important;
+}

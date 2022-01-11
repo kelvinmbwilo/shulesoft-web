@@ -74,6 +74,11 @@ module.exports = {
           a400: "var(--contrast-a400)",
           a700: "var(--contrast-a700)",
         },
+        word: {
+          primary: "var(--textcolor)",
+          secondary: "var(--secondary-textcolor)"
+        },
+
       },
     },
   },

@@ -1,5 +1,7 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
+import {CommonService} from "./services/common.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -11,11 +13,16 @@ export class AppComponent implements OnInit{
   toggleControl = new FormControl(false);
   @HostBinding('class') className = 'light-theme';
   title = 'shule-soft-front-end';
+  isDarkMode$: Observable<boolean>;
+  constructor(
+    private commonService: CommonService,
+  ) {
+    this.isDarkMode$ = this.commonService.isDarkMode;
+  }
 
   ngOnInit(): void {
-    this.toggleControl.valueChanges.subscribe((darkMode: any) => {
-      const darkClassName = 'darkMode';
-      this.className = darkMode ? 'dark-theme' : 'light-theme';
-    });
+    const isDarkMode = localStorage.getItem('isDarkMode');
+    this.toggleControl.setValue(isDarkMode === 'YES');
+    this.commonService.setDarkMode(isDarkMode === 'YES');
   }
 }

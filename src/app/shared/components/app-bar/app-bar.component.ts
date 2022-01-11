@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import { EventEmitter } from '@angular/core';
 import {Router} from "@angular/router";
+import {FormControl} from "@angular/forms";
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-app-bar',
@@ -20,17 +22,25 @@ export class AppBarComponent implements OnInit {
 
   loading$!: Observable<boolean>;
   userName = 'Kelvin Mbwilo';
-  userPhoto = 'assets/images/profile-male.png';
   email: any;
   // schoolLogo = 'assets/images/shulesoft_logo.png';
   schoolLogo = 'assets/images/stfransis.jpeg';
   schoolName = 'St Francis Girls';
+
+  toggleControl = new FormControl(false);
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
+    private commonService: CommonService,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {const isDarkMode = localStorage.getItem('isDarkMode');
+    this.toggleControl.setValue(isDarkMode === 'YES');
+
+    this.toggleControl.valueChanges.subscribe((darkMode: boolean) => {
+      this.commonService.setDarkMode(darkMode);
+      localStorage.setItem('isDarkMode', darkMode ? 'YES' : 'NO');
+    });
   }
 
   onToggleSidenav() {
@@ -40,6 +50,7 @@ export class AppBarComponent implements OnInit {
   logout() {
     // return this.authService.isLoggedIn();
   }
+
 
 
 }

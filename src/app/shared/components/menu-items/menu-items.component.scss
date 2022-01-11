@@ -12,8 +12,8 @@
   border: 1px solid #ffffff5e;
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1) !important;
   cursor: pointer;
-  h3 {
-    color: var(--);
+  h2 {
+    color: var(--textcolor)!important;
   }
 
   p {
@@ -21,25 +21,25 @@
     color: var(--secondary-textcolor);
   }
 
-  .img-div {
-    display: grid;
-    background-color: #ffffff96;
-    width: 85px;
-    height: 100%;
-    padding: 17px;
-    text-align: center;
-    border-radius: 42px;
-    align-content: center;
-    justify-content: center;
-    mat-icon {
-      height: 50px;
-      width: 50px;
-      color: var(--textcolor);
-    }
-    img {
-      height: 50px;
-      width: 50px;
-    }
+
+}
+.img-div {
+  display: grid;
+  width: 85px;
+  height: 100%;
+  padding: 17px;
+  text-align: center;
+  border-radius: 42px;
+  align-content: center;
+  justify-content: center;
+  mat-icon {
+    height: 50px;
+    width: 50px;
+    color: var(--textcolor);
+  }
+  img {
+    height: 50px;
+    width: 50px;
   }
 }
 

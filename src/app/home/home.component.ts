@@ -7,7 +7,6 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @HostBinding('class') className = 'light-theme';
   menus = [
     {
       name: 'Academics',

@@ -11,6 +11,7 @@ export class CommonService {
 
   showHElp1 = new BehaviorSubject(false);
   helpText = new BehaviorSubject('');
+  isDarkMode = new BehaviorSubject(false);
   private onlineStatus$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   constructor(
@@ -22,6 +23,10 @@ export class CommonService {
   showHelp(helpText: string) {
     this.helpText.next(helpText);
     this.showHElp1.next(true);
+  }
+
+  setDarkMode(isDark: boolean = false) {
+    this.isDarkMode.next(isDark);
   }
 
   closeHelp() {
