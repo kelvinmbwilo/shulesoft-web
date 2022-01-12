@@ -1,5 +1,5 @@
-<nav class="main-nav mat-elevation-z6">
-  <mat-toolbar class="toolbar no-print text-ac">
+<nav class="main-nav mat-elevation-z0">
+  <mat-toolbar class="toolbar no-print">
     <div class="w-full flex flex-row justify-between items-center gap-3">
       <div class="flex flex-row gap-4 items-center justify-start">
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="onToggleSidenav()"
@@ -20,7 +20,7 @@
 <!--          <input matInput placeholder="Search">-->
 <!--        </mat-form-field>-->
 <!--      </div>-->
-      <div>
+      <div class="flex flex-row justify-between items-center gap-3">
         <mat-menu #appMenu="matMenu" class="profile-menu">
           <button mat-menu-item>
             <mat-icon>person_outline</mat-icon>
@@ -77,22 +77,42 @@
           <app-notifications [notifications]="[]" [total]="0"></app-notifications>
         </mat-menu>
 
-        <button style="min-width: 50px;" class="menu-trigger" title="See your Notifications" mat-icon-button
+        <button style="min-width: 50px;" title="See your Notifications" mat-icon-button
                 [matMenuTriggerFor]="notification">
           <mat-icon class="text-word-primary" [matBadge]="0" matBadgeSize="small" matBadgeColor="primary" matBadgePosition="above after"
                     style="margin-right: 12px;" [svgIcon]="'notification'"></mat-icon>
         </button>
 
+        <div class="h-8 w-0.5 bg-word-secondary"></div>
 
-        <button title="User Options" mat-button [matMenuTriggerFor]="appMenu">
-          <div class="flex flex-row justify-between items-center gap-2 text-word-primary">
-            <div class="flex flex-row justify-between items-center gap-2 text-xl font-light tracking-wider">
-              <mat-icon class="flex-none ">person</mat-icon>
-              <p class="user-title">{{ userName | titlecase }}</p>
-            </div>
-            <mat-icon class="flex-none text-2xl">arrow_drop_down</mat-icon>
-          </div>
+
+        <button
+                [matMenuTriggerFor]="appMenu"
+                class="flex justify-between items-center space-x-1 mr-4">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="h-6 w-6 text-word-primary font-light"
+               fill="none"
+               viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-word-primary font-normal flex items-center">User Name <mat-icon>arrow_drop_down
+              </mat-icon></span>
+
         </button>
+
+<!--        <button title="User Options" mat-button [matMenuTriggerFor]="appMenu">-->
+<!--          <div class="flex flex-row justify-between items-center gap-2 text-word-primary">-->
+<!--            <div class="flex flex-row justify-between items-center gap-2 text-xl font-light tracking-wider">-->
+<!--              <mat-icon class="flex-none ">person</mat-icon>-->
+<!--              <p class="user-title">{{ userName | titlecase }}</p>-->
+<!--            </div>-->
+<!--            <mat-icon class="flex-none text-2xl">arrow_drop_down</mat-icon>-->
+<!--          </div>-->
+<!--        </button>-->
       </div>
     </div>
   </mat-toolbar>

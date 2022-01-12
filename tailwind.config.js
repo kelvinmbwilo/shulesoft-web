@@ -2,6 +2,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   mode: process.env.TAILWIND_MODE ? "jit" : "",
+  darkMode: 'class',
   content: ["./src/**/*.{ts,html,scss}"],
   theme: {
     fontFamily: {

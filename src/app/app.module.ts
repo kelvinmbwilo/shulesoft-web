@@ -16,12 +16,14 @@ import {EffectsModule} from "@ngrx/effects";
 import {RouterStateSerializer, StoreRouterConnectingModule} from "@ngrx/router-store";
 import {CustomSerializer} from "./store/router/router.reducer";
 import {SharedModule} from "./shared/shared.module";
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,

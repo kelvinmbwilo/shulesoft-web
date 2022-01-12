@@ -1,17 +1,18 @@
-<div class="p-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 ">
-  <div
-    [ngClass]="routeAnimationsElements"
-    class="hover:bg-secondary-100 transition group flex flex-row items-center gap-10 border-sm p-8 border-primary-100 rounded-3xl hover:cursor-pointer hover:shadow-2xl shadow-xl"
-    *ngFor="let menu of menus"
-    (click)="goTo(menu)"
-  >
-    <div class="img-div bg-primary-800 group-hover:bg-primary-400">
-      <img *ngIf="menu.image" alt="test" src="assets/images/icons/{{menu.image}}">
-      <mat-icon *ngIf="menu.icon" [svgIcon]="menu.icon"></mat-icon>
-    </div>
-    <div>
-      <h2 class="text-word-primary text-xl font-black mb-1">{{menu.name}}</h2>
-      <p class="text-word-secondary lead">{{menu.description}}</p>
+
+  <div class="p-10 grid gap-10 sm:grid-cols-2 md:grid-cols-3">
+    <div
+      [ngClass]="routeAnimationsElements"
+      class="hover:bg-secondary-100 transition group flex flex-row items-center gap-10 border-sm p-8 border-primary-100 rounded-3xl hover:cursor-pointer hover:shadow-2xl shadow-xl"
+      *ngFor="let menu of menus"
+      (click)="goTo(menu)"
+    >
+      <div class="img-div bg-primary-800 group-hover:bg-primary-400">
+        <img *ngIf="menu.image" alt="test" src="assets/images/icons/{{menu.image}}">
+        <mat-icon *ngIf="menu.icon" [svgIcon]="menu.icon"></mat-icon>
+      </div>
+      <div>
+        <h2 class="text-word-primary text-xl font-black mb-1">{{menu.name}}</h2>
+        <p class="text-word-secondary lead">{{menu.description}}</p>
+      </div>
     </div>
   </div>
-</div>

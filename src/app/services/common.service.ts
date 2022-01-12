@@ -8,7 +8,6 @@ import {FormControl, FormGroup} from '@angular/forms';
   providedIn: 'root'
 })
 export class CommonService {
-
   showHElp1 = new BehaviorSubject(false);
   helpText = new BehaviorSubject('');
   isDarkMode = new BehaviorSubject(false);

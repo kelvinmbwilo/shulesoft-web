@@ -7,13 +7,16 @@ import { FinanceMenuComponent } from './finance-menu/finance-menu.component';
 
 
 @NgModule({
-  declarations: [
-    ShuleSoftFinanceComponent,
-    FinanceMenuComponent
-  ],
-  imports: [
-    CommonModule,
-    ShuleSoftFinanceRoutingModule
-  ]
+    declarations: [
+        ShuleSoftFinanceComponent,
+        FinanceMenuComponent
+    ],
+    exports: [
+        FinanceMenuComponent
+    ],
+    imports: [
+        CommonModule,
+        ShuleSoftFinanceRoutingModule
+    ]
 })
 export class ShuleSoftFinanceModule { }

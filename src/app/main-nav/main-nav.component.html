@@ -1,0 +1,117 @@
+
+
+
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer
+               class="sidenav no-print "
+               fixedInViewport="false"
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'side'"
+               [opened]="!(isHandset$ | async) && isOpen">
+    <div class="h-full flex flex-row">
+      <div class="bg-gray-200 dark:bg-black/10 w-24 h-full overflow-y-auto flex flex-col justify-between items-center">
+        <div class="flex justify-center items-center pt-4">
+          <img src="assets/icons/icon-96x96.png" class="rounded-full h-12 w-12">
+        </div>
+
+        <div class="grid gap-6 items-center justify-center">
+          <div (click)="setMenus(menu)" *ngFor="let menu of menus" class="w-24 border-r-4 border-r-transparent hover:border-r-word-primary group transition grid place-items-center gap-1 hover:cursor-pointer">
+            <div class="group-hover:bg-primary-200 p-3 rounded-3xl transition shadow group-hover:bg-primary-400  grid place-items-center">
+              <mat-icon *ngIf="menu.icon" [svgIcon]="menu.icon" class="h-6 w-6 dark:text-black text-word-primary"></mat-icon>
+            </div>
+            <p class="text-center m-0 pt-1 text-word-secondary group-hover:text-word-primary text-[10px] font-light group-hover:font-bold group-hover:tracking-widest">
+              {{menu.shortName}}
+            </p>
+          </div>
+        </div>
+        <div class="mb-8">
+          <img src="assets/images/shulesoft_logo.png" class="rounded-full h-12 w-12">
+        </div>
+      </div>
+      <div class="flex flex-col flex-grow justify-start gap-8 items-center">
+
+        <div class="w-full grid place-items-center">
+          <img src="assets/images/stfransis.jpeg" class="h-20">
+        </div>
+
+        <div class="w-full">
+          <ng-container *ngFor="let menu of menuItems">
+            <ng-container >
+              <ng-container *ngIf="!menu.children">
+                <a
+                  mat-list-item
+                  [routerLink]="menu?.route"
+                  routerLinkActive="active-menu"
+                >
+                  <i
+                    *ngIf="menu?.icon"
+                    class="ks-icon fa fa-{{ menu?.icon }}"
+                  ></i>
+                  <span *ngIf="menu?.icon">&nbsp;</span>
+                  <span>{{ menu?.name }}</span>
+                </a>
+                <mat-divider></mat-divider>
+              </ng-container>
+              <ng-container *ngIf="menu?.children">
+                <mat-accordion>
+                  <mat-expansion-panel
+                    [expanded]="menu?.name === currentMenu"
+                    (click)="currentMenu = menu?.name"
+                  >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title class="big-menu-items">
+                    <span
+                      *ngIf="menu.icon"
+                      class="ks-icon fa fa-{{ menu?.icon }}"
+                    ></span>
+                        <span *ngIf="menu?.icon">&nbsp;</span>
+                        {{ menu?.name }}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="flex flex-col gap-1">
+                      <div class="flex flex-col"  *ngFor="let menuItem of menu?.children">
+                        <ng-container >
+                          <a
+                            style="padding-left: 20px"
+                            [routerLink]="menuItem.route"
+                            class="p-3"
+                            routerLinkActive="active-menu"
+                          >
+                            <span *ngIf="menu?.icon">&nbsp;</span>
+                            <span>{{ menuItem.name }}</span>
+                          </a>
+                          <mat-divider></mat-divider>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+                <mat-divider></mat-divider>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+
+        <div>
+
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="h-screen"
+         style="position: relative">
+      <app-app-bar [usedInApps]="false" (sidenavToggle)="drawer.toggle()"></app-app-bar>
+
+
+      <!-- Add Content Here -->
+      <div class="p-3 h-screen w-full">
+
+        <ng-content></ng-content>
+      </div>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
