@@ -17,13 +17,15 @@ import {RouterStateSerializer, StoreRouterConnectingModule} from "@ngrx/router-s
 import {CustomSerializer} from "./store/router/router.reducer";
 import {SharedModule} from "./shared/shared.module";
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { PageComponent } from './page/page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    MainNavComponent
+    MainNavComponent,
+    PageComponent
   ],
   imports: [
     BrowserModule,

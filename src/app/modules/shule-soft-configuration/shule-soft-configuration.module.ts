@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShuleSoftConfigurationComponent } from './shule-soft-configuration.component';
 import {ShuleSoftConfigurationRoutingModule} from './shule-soft-configuration-routing.module';
 import { ConfigurationMenuComponent } from './configuration-menu/configuration-menu.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 
@@ -14,6 +15,7 @@ import { ConfigurationMenuComponent } from './configuration-menu/configuration-m
   imports: [
     CommonModule,
     ShuleSoftConfigurationRoutingModule,
+    SharedModule,
   ]
 })
 export class ShuleSoftConfigurationModule { }

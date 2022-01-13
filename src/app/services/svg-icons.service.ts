@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {menuIcons} from "./menu-icons";
 
 @Injectable({
   providedIn: 'root'
@@ -6,8 +7,10 @@ import {Injectable} from '@angular/core';
 export class SvgIconsService {
   // REGISTER CUSTOMER SVG ICON IN THE ARRAY BELOW
   // USE svgminify.com TO MINIFY AND GENERATE SVG CODES
-  // USE flaticon.com TO DOWNLOAD FREE SVG IMAGES
+  // USE flaticon.com TO DOWNLOAD FREE SVG IMAGES -- this now is proprietary
+  // USE https://www.svgrepo.com/vectors/ TO DOWNLOAD FREE SVG IMAGES
   customer_icons: { name: string, tag: string }[] = [
+    ...menuIcons,
     {
     name: 'settings',
     tag: `

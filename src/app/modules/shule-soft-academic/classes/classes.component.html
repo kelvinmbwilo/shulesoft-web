@@ -1,0 +1,24 @@
+<app-shared-layout
+  Analysis="Classes"
+  image="class"
+  [hideAdd]="false"
+  [viewDetails]="viewDetails"
+  [addPermission]="[]"
+  (addItem)="onAdd()"
+  [smallForm]="false"
+  animationSize="full"
+  [formTitle]="viewDetailsTitle"
+  (closeDetails)="closeDetails()">
+  <div ngProjectAs="table">
+    <app-full-data-table
+      [tableList]="classes"
+      [tableConfigurations]="tableConfigurations"
+      [loading]="false"
+      [title]="'Action Plans'"
+      (rowPreview)="viewItem($event)"
+      (rowDelete)="delete($event)"
+      (rowUpdate)="updateItem($event)"></app-full-data-table>
+  </div>
+  <div ngProjectAs="form">
+  </div>
+</app-shared-layout>

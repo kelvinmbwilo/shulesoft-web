@@ -1,119 +1,119 @@
-<nav class="main-nav mat-elevation-z0">
-  <mat-toolbar class="toolbar no-print">
-    <div class="w-full flex flex-row justify-between items-center gap-3">
-      <div class="flex flex-row gap-4 items-center justify-start">
-        <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="onToggleSidenav()"
-                *ngIf="(isHandset$ | async) && !usedInApps">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
+<nav class="main-nav mat-elevation-z0 absolute top-0 w-full">
+    <mat-toolbar class="toolbar no-print">
+      <div class="w-full flex flex-row justify-between items-center gap-3">
+        <div class="flex flex-row gap-4 items-center justify-start">
+          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="onToggleSidenav()"
+                  *ngIf="!usedInApps">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+          </button>
 
-        <span class="secondary-color">
+          <span class="secondary-color" *ngIf="usedInApps">
         <img [src]="schoolLogo" style="height: auto; width: 50px; margin-bottom: 2px; margin-left: 10px; border-radius: 50%">
         </span>
-        <span class="text-word-primary text-2xl font-semibold">
+          <span class="text-word-primary text-2xl font-semibold">
       {{schoolName}}
     </span>
-      </div>
-<!--      <div class="p-2 w-5/12 mx-5 search-area mt-2">-->
-<!--        <mat-form-field appearance="outline">-->
-<!--          <mat-icon matPrefix>search</mat-icon>-->
-<!--          <input matInput placeholder="Search">-->
-<!--        </mat-form-field>-->
-<!--      </div>-->
-      <div class="flex flex-row justify-between items-center gap-3">
-        <mat-menu #appMenu="matMenu" class="profile-menu">
-          <button mat-menu-item>
-            <mat-icon>person_outline</mat-icon>
-            Profile
+        </div>
+        <!--      <div class="p-2 w-5/12 mx-5 search-area mt-2">-->
+        <!--        <mat-form-field appearance="outline">-->
+        <!--          <mat-icon matPrefix>search</mat-icon>-->
+        <!--          <input matInput placeholder="Search">-->
+        <!--        </mat-form-field>-->
+        <!--      </div>-->
+        <div class="flex flex-row justify-between items-center gap-3">
+          <mat-menu #appMenu="matMenu" class="profile-menu">
+            <button mat-menu-item>
+              <mat-icon>person_outline</mat-icon>
+              Profile
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item>
+              <mat-icon>help_outline</mat-icon>
+              User Manual
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item>
+              <mat-icon>lock_open</mat-icon>
+              Logout
+            </button>
+            <div mat-menu-item>
+              <mat-icon class="mr-8">brightness_5</mat-icon>
+              <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+              </mat-slide-toggle>
+              <mat-icon>bedtime</mat-icon>
+            </div>
+            <!--      <mat-list>-->
+            <!--        <mat-list-item>-->
+            <!--          <a routerLink="/erp-general/profile" mat-menu-item>-->
+            <!--            <mat-icon>person_outline</mat-icon> Profile-->
+            <!--          </a>-->
+            <!--        </mat-list-item>-->
+            <!--        <mat-divider></mat-divider>-->
+            <!--        <mat-list-item>-->
+            <!--          <a mat-menu-item>-->
+            <!--            <mat-icon>help_outline</mat-icon> User Manual-->
+            <!--          </a>-->
+            <!--        </mat-list-item>-->
+            <!--        <mat-divider></mat-divider>-->
+            <!--        <mat-list-item>-->
+            <!--          <a routerLink="/logout" mat-menu-item>-->
+            <!--            <mat-icon>lock_open</mat-icon> Logout-->
+            <!--          </a>-->
+            <!--        </mat-list-item>-->
+            <!--        <mat-divider></mat-divider>-->
+            <!--        <mat-list-item>-->
+            <!--          <div style="padding: 20px">-->
+            <!--            <h6 style="margin-bottom: 0px" *ngIf="userName">{{ userName | titlecase }}</h6>-->
+            <!--            <p style="margin-bottom: 0px; font-size:10px" *ngIf="email">{{ email }}</p>-->
+            <!--          </div>-->
+            <!--        </mat-list-item>-->
+            <!--      </mat-list>-->
+
+          </mat-menu>
+
+
+          <!--    Notifications-->
+          <mat-menu #notification="matMenu" class="menu-items">
+            <app-notifications [notifications]="[]" [total]="0"></app-notifications>
+          </mat-menu>
+
+          <button style="min-width: 50px;" title="See your Notifications" mat-icon-button
+                  [matMenuTriggerFor]="notification">
+            <mat-icon class="text-word-primary" [matBadge]="0" matBadgeSize="small" matBadgeColor="primary" matBadgePosition="above after"
+                      style="margin-right: 12px;" [svgIcon]="'notification'"></mat-icon>
           </button>
-          <mat-divider></mat-divider>
-          <button mat-menu-item>
-            <mat-icon>help_outline</mat-icon>
-            User Manual
-          </button>
-          <mat-divider></mat-divider>
-          <button mat-menu-item>
-            <mat-icon>lock_open</mat-icon>
-            Logout
-          </button>
-          <div mat-menu-item>
-            <mat-icon class="mr-8">brightness_5</mat-icon>
-            <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
-            </mat-slide-toggle>
-            <mat-icon>bedtime</mat-icon>
-          </div>
-          <!--      <mat-list>-->
-          <!--        <mat-list-item>-->
-          <!--          <a routerLink="/erp-general/profile" mat-menu-item>-->
-          <!--            <mat-icon>person_outline</mat-icon> Profile-->
-          <!--          </a>-->
-          <!--        </mat-list-item>-->
-          <!--        <mat-divider></mat-divider>-->
-          <!--        <mat-list-item>-->
-          <!--          <a mat-menu-item>-->
-          <!--            <mat-icon>help_outline</mat-icon> User Manual-->
-          <!--          </a>-->
-          <!--        </mat-list-item>-->
-          <!--        <mat-divider></mat-divider>-->
-          <!--        <mat-list-item>-->
-          <!--          <a routerLink="/logout" mat-menu-item>-->
-          <!--            <mat-icon>lock_open</mat-icon> Logout-->
-          <!--          </a>-->
-          <!--        </mat-list-item>-->
-          <!--        <mat-divider></mat-divider>-->
-          <!--        <mat-list-item>-->
-          <!--          <div style="padding: 20px">-->
-          <!--            <h6 style="margin-bottom: 0px" *ngIf="userName">{{ userName | titlecase }}</h6>-->
-          <!--            <p style="margin-bottom: 0px; font-size:10px" *ngIf="email">{{ email }}</p>-->
-          <!--          </div>-->
-          <!--        </mat-list-item>-->
-          <!--      </mat-list>-->
 
-        </mat-menu>
+          <div class="h-8 w-0.5 bg-word-secondary"></div>
 
 
-        <!--    Notifications-->
-        <mat-menu #notification="matMenu" class="menu-items">
-          <app-notifications [notifications]="[]" [total]="0"></app-notifications>
-        </mat-menu>
-
-        <button style="min-width: 50px;" title="See your Notifications" mat-icon-button
-                [matMenuTriggerFor]="notification">
-          <mat-icon class="text-word-primary" [matBadge]="0" matBadgeSize="small" matBadgeColor="primary" matBadgePosition="above after"
-                    style="margin-right: 12px;" [svgIcon]="'notification'"></mat-icon>
-        </button>
-
-        <div class="h-8 w-0.5 bg-word-secondary"></div>
-
-
-        <button
-                [matMenuTriggerFor]="appMenu"
-                class="flex justify-between items-center space-x-1 mr-4">
-          <svg xmlns="http://www.w3.org/2000/svg"
-               class="h-6 w-6 text-word-primary font-light"
-               fill="none"
-               viewBox="0 0 24 24"
-               stroke="currentColor">
-            <path stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span class="text-word-primary font-normal flex items-center">User Name <mat-icon>arrow_drop_down
+          <button
+            [matMenuTriggerFor]="appMenu"
+            class="flex justify-between items-center space-x-1 mr-4">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-6 w-6 text-word-primary font-light"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-word-primary font-normal flex items-center">User Name <mat-icon>arrow_drop_down
               </mat-icon></span>
 
-        </button>
+          </button>
 
-<!--        <button title="User Options" mat-button [matMenuTriggerFor]="appMenu">-->
-<!--          <div class="flex flex-row justify-between items-center gap-2 text-word-primary">-->
-<!--            <div class="flex flex-row justify-between items-center gap-2 text-xl font-light tracking-wider">-->
-<!--              <mat-icon class="flex-none ">person</mat-icon>-->
-<!--              <p class="user-title">{{ userName | titlecase }}</p>-->
-<!--            </div>-->
-<!--            <mat-icon class="flex-none text-2xl">arrow_drop_down</mat-icon>-->
-<!--          </div>-->
-<!--        </button>-->
+          <!--        <button title="User Options" mat-button [matMenuTriggerFor]="appMenu">-->
+          <!--          <div class="flex flex-row justify-between items-center gap-2 text-word-primary">-->
+          <!--            <div class="flex flex-row justify-between items-center gap-2 text-xl font-light tracking-wider">-->
+          <!--              <mat-icon class="flex-none ">person</mat-icon>-->
+          <!--              <p class="user-title">{{ userName | titlecase }}</p>-->
+          <!--            </div>-->
+          <!--            <mat-icon class="flex-none text-2xl">arrow_drop_down</mat-icon>-->
+          <!--          </div>-->
+          <!--        </button>-->
+        </div>
       </div>
-    </div>
-  </mat-toolbar>
-</nav>
+    </mat-toolbar>
+  </nav>

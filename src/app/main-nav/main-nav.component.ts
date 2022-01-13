@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from "@angular/cdk/layout";
 import { Store} from "@ngrx/store";
 import {OfflineManagerService} from "../services/offline-manager.service";
@@ -8,13 +8,14 @@ import {Observable} from "rxjs";
 import {LocalStorageService} from "../services/local-storage.service";
 import {map} from "rxjs/operators";
 import { menuOptions } from './menu-options';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss']
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit {
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
@@ -30,8 +31,29 @@ export class MainNavComponent {
     private breakpointObserver: BreakpointObserver,
     private offlineManager: OfflineManagerService,
     private localStorageService: LocalStorageService,
-    private store: Store<ApplicationState>
-  ) { }
+    private store: Store<ApplicationState>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+
+  }
+
+  ngOnInit() {
+    this.route.url.subscribe(params => {
+      console.log('from main nav', this.router.url);
+      const route = this.router.url.split('/');
+      console.log(route);
+      const moduleRoute = route[2];
+      const subModuleRoute = route[3];
+      if (subModuleRoute) {
+        this.currentMenu = subModuleRoute;
+      }
+      if (moduleRoute) {
+        const menu = this.menus.find(i => i.route.indexOf(moduleRoute) > -1);
+        this.setMenus(menu);
+      }
+    });
+  }
 
   logout() {
     this.store.dispatch(new Go({ path: ['login'] }));

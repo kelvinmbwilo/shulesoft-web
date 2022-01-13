@@ -9,80 +9,125 @@
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="!(isHandset$ | async) && isOpen">
-    <div class="h-full flex flex-row">
-      <div class="bg-gray-200 dark:bg-black/10 w-24 h-full overflow-y-auto flex flex-col justify-between items-center">
-        <div class="flex justify-center items-center pt-4">
-          <img src="assets/icons/icon-96x96.png" class="rounded-full h-12 w-12">
+    <div class="flex flex-row h-screen bg-gray-200 dark:bg-black/10">
+      <div class="bg-gray-200 dark:bg-black/10 w-24">
+        <div class="grid justify-center items-center pt-4 h-[125px]">
+          <img [routerLink]="['']" src="assets/icons/icon-96x96.png" class="rounded-full h-12 w-12">
         </div>
+        <div class="h-[40px]"></div>
 
-        <div class="grid gap-6 items-center justify-center">
-          <div (click)="setMenus(menu)" *ngFor="let menu of menus" class="w-24 border-r-4 border-r-transparent hover:border-r-word-primary group transition grid place-items-center gap-1 hover:cursor-pointer">
-            <div class="group-hover:bg-primary-200 p-3 rounded-3xl transition shadow group-hover:bg-primary-400  grid place-items-center">
-              <mat-icon *ngIf="menu.icon" [svgIcon]="menu.icon" class="h-6 w-6 dark:text-black text-word-primary"></mat-icon>
+        <div class="grid gap-6 flex-grow items-center justify-center" >
+          <div (click)="setMenus(menu)" [routerLinkActive]="['active-main-link']" [routerLink]="menu.route" *ngFor="let menu of menus" class="w-24 border-r-4 border-r-transparent hover:border-r-word-primary group transition grid place-items-center hover:cursor-pointer">
+            <div class="icon-div dark:bg-gray-800 p-2 rounded-3xl transition shadow group-hover:bg-primary-400  grid place-items-center">
+              <mat-icon *ngIf="menu.icon" [svgIcon]="menu.icon" class="h-4 w-4 dark:text-word-secondary text-word-primary"></mat-icon>
             </div>
-            <p class="text-center m-0 pt-1 text-word-secondary group-hover:text-word-primary text-[10px] font-light group-hover:font-bold group-hover:tracking-widest">
-              {{menu.shortName}}
+            <p class="icon-text text-center m-0 pt-1 text-word-secondary dark:text-word-primary group-hover:text-word-primary text-[10px] font-light group-hover:font-bold group-hover:tracking-widest">
+              <span>{{menu.shortName}}</span>
             </p>
           </div>
         </div>
-        <div class="mb-8">
-          <img src="assets/images/shulesoft_logo.png" class="rounded-full h-12 w-12">
-        </div>
+<!--        <div class="mb-8">-->
+<!--          <img src="assets/images/shulesoft_logo.png" class="rounded-full h-12 w-12">-->
+<!--        </div>-->
       </div>
-      <div class="flex flex-col flex-grow justify-start gap-8 items-center">
+      <div class="flex flex-col flex-grow justify-start gap-1 items-center bg-white dark:bg-transparent">
 
-        <div class="w-full grid place-items-center">
-          <img src="assets/images/stfransis.jpeg" class="h-20">
+        <div class="w-full grid place-items-center h-[160px] shrink-0">
+          <img src="assets/images/stfransis.jpeg" class="h-[110px] object-cover rounded-3xl dark:opacity-60" >
         </div>
 
         <div class="w-full">
+          <mat-divider></mat-divider>
           <ng-container *ngFor="let menu of menuItems">
             <ng-container >
               <ng-container *ngIf="!menu.children">
-                <a
-                  mat-list-item
+                <div
+                  class="big-menu-items !p-5 hover:bg-menu-hover transition transform hover:scale-x-102 border-r-4 border-r-transparent hover:border-r-word-primary"
                   [routerLink]="menu?.route"
                   routerLinkActive="active-menu"
                 >
-                  <i
-                    *ngIf="menu?.icon"
-                    class="ks-icon fa fa-{{ menu?.icon }}"
-                  ></i>
-                  <span *ngIf="menu?.icon">&nbsp;</span>
-                  <span>{{ menu?.name }}</span>
-                </a>
+                  <div class="flex justify-start items-center gap-2">
+                    <mat-icon *ngIf="menu.icon" [svgIcon]="menu.icon" class="!h-4 !w-4 text-word-primary opacity-70"></mat-icon>
+                    <div>{{ menu?.name }}</div>
+                  </div>
+
+                </div>
                 <mat-divider></mat-divider>
               </ng-container>
               <ng-container *ngIf="menu?.children">
                 <mat-accordion>
                   <mat-expansion-panel
-                    [expanded]="menu?.name === currentMenu"
-                    (click)="currentMenu = menu?.name"
+                    [expanded]="!!menu?.key && menu?.key == currentMenu"
+                    (click)="currentMenu = menu?.key"
                   >
-                    <mat-expansion-panel-header>
+                    <mat-expansion-panel-header class="dark:bg-black/10 hover:!bg-menu-hover transition transform hover:scale-x-102 border-r-4 border-r-transparent hover:border-r-word-primary">
                       <mat-panel-title class="big-menu-items">
-                    <span
-                      *ngIf="menu.icon"
-                      class="ks-icon fa fa-{{ menu?.icon }}"
-                    ></span>
-                        <span *ngIf="menu?.icon">&nbsp;</span>
-                        {{ menu?.name }}
+                        <div class="flex justify-start items-center gap-2 pl-1">
+                          <mat-icon *ngIf="menu.icon" [svgIcon]="menu.icon" class="!h-4 !w-4 text-word-primary opacity-70"></mat-icon>
+                          <div>{{ menu?.name }}</div>
+                        </div>
+
+<!--                        <span-->
+<!--                      *ngIf="menu.icon"-->
+<!--                      class="ks-icon fa fa-{{ menu?.icon }}"-->
+<!--                    ></span>-->
+<!--                        <span *ngIf="menu?.icon">&nbsp;</span>-->
+<!--                        {{ menu?.name }}-->
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div class="flex flex-col gap-1">
-                      <div class="flex flex-col"  *ngFor="let menuItem of menu?.children">
-                        <ng-container >
+                    <div class="flex flex-col dark:bg-black/10">
+                      <mat-divider></mat-divider>
+                      <div class="flex flex-col"  *ngFor="let menuItem of menu?.children; let k = index">
+                        <ng-container *ngIf="!menuItem.children">
                           <a
-                            style="padding-left: 20px"
                             [routerLink]="menuItem.route"
-                            class="p-3"
+                            class="!px-8 !py-5 font-light hover:!bg-menu-hover transition transform hover:scale-x-102 border-r-4 border-r-transparent hover:border-r-word-primary"
                             routerLinkActive="active-menu"
                           >
                             <span *ngIf="menu?.icon">&nbsp;</span>
                             <span>{{ menuItem.name }}</span>
                           </a>
+                          <mat-divider *ngIf="menu.children.length != k + 1"></mat-divider>
+                        </ng-container>
+
+
+                        <ng-container *ngIf="menuItem?.children">
+                          <mat-accordion>
+                            <mat-expansion-panel
+                              [expanded]="!!menuItem?.key && menuItem?.key == currentMenu"
+                              (click)="currentMenu = menuItem?.key"
+                            >
+                              <mat-expansion-panel-header class="dark:bg-black/10 hover:!bg-menu-hover transition transform hover:scale-x-102 border-r-4 border-r-transparent hover:border-r-word-primary">
+                                <mat-panel-title class="big-menu-items !pl-4">
+                                  <span
+                                    *ngIf="menuItem.icon"
+                                    class="ks-icon fa fa-{{ menuItem?.icon }}"
+                                  ></span>
+                                  <span *ngIf="menuItem?.icon">&nbsp;</span>
+                                  {{ menuItem?.name }}
+                                </mat-panel-title>
+                              </mat-expansion-panel-header>
+                              <div class="flex flex-col dark:bg-black/10">
+                                <mat-divider></mat-divider>
+                                <div class="flex flex-col"  *ngFor="let menuItemChild of menuItem?.children; let i = index">
+                                  <ng-container >
+                                    <a
+                                      [routerLink]="menuItemChild.route"
+                                      class="!pl-12 !py-5 font-light hover:!bg-menu-hover transition transform hover:scale-x-102 border-r-4 border-r-transparent hover:border-r-word-primary"
+                                      routerLinkActive="active-menu"
+                                    >
+                                      <span *ngIf="menuItemChild?.icon">&nbsp;</span>
+                                      <span>{{ menuItemChild.name }}</span>
+                                    </a>
+                                    <mat-divider *ngIf="menuItem.children?.length != i + 1"></mat-divider>
+                                  </ng-container>
+                                </div>
+                              </div>
+                            </mat-expansion-panel>
+                          </mat-accordion>
                           <mat-divider></mat-divider>
                         </ng-container>
+
                       </div>
                     </div>
                   </mat-expansion-panel>

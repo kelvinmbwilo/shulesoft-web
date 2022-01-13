@@ -1,0 +1,503 @@
+<div class="table-cover">
+  <div class="top-area">
+    <div class="search-area">
+      <mat-form-field *ngIf="tableConfigurations.showSearch">
+        <mat-label>
+          <mat-icon>search</mat-icon>
+          Search
+        </mat-label>
+        <!--<input matInput [(ngModel)]="searchQuery" placeholder="Search">-->
+        <input autocomplete="off"
+          matInput
+          (keyup)="applyFilter($event.target)"
+          placeholder="Search" />
+      </mat-form-field>
+    </div>
+    <div class="excel-button"
+      *appHasPermission="permissions?.export || ''">
+      <button mat-raised-button
+        *ngIf="!tableConfigurations.hideExport">
+        <mat-icon style="margin-bottom: 5px; color: green;">insert_drive_file</mat-icon>
+        Export
+      </button>
+    </div>
+  </div>
+
+  <app-loader @fadeIn
+    *ngIf="loading"
+    message="{{ loadingMessage || 'Please Wait...' }}"></app-loader>
+
+  <div *ngIf="legends.length && !loading && showLegends">
+    <table class="table table-bordered">
+      <tr>
+        <td *ngFor="let legend of legends"
+          [ngStyle]="{'text-align': 'center', 'padding': '7px','background-color':legend.color}">
+          <small><b>{{legend.start}} - {{legend.end}}</b></small><br>
+          <small>{{legend.name}}</small><br>
+          <!-- <p>{{legend.name}}</p> -->
+          <small>
+            <span *ngFor="let n of arrayOne(legend.numberOfStars)">
+              ⭐️
+            </span>
+          </small>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <table [ngClass]="{ 'table-bordered': tableConfigurations.showBorder }"
+    mat-table
+    [trackBy]="trackByFn"
+    [dataSource]="dataSource"
+    matSort
+    class="mat-elevation-z2"
+    *ngIf="tableList?.length != 0; else noData">
+    <!-- Number Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell
+        *matHeaderCellDef
+        mat-sort-header>No</th>
+      <td mat-cell
+        *matCellDef="let element; let i = index"
+        [ngClass]="{
+          active: tableConfigurations.active[element?.id],
+          error: element?.hasError
+        }">
+        {{ i + 1 }}
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container *ngIf="tableConfigurations.allowDataEdition">
+      <ng-container *ngFor="let column of tableConfigurations.tableColumns"
+        matColumnDef="{{ column.name }}">
+        <th mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+          {{ column.label }}
+        </th>
+        <td mat-cell
+          *matCellDef="let element"
+          [ngClass]="{
+            active: tableConfigurations.active[element?.id],
+            error: element?.hasError,
+            blurred: tableConfigurations.deleting[element?.id]
+          }"
+          style="max-width: 250px;"
+          (click)="getRecord(element[column.name], element)">
+          <span *ngIf="column.type == 'number'">
+            {{ element[column.name] | number }}
+          </span>
+          <span *ngIf="column.type == 'color'"
+            [style.backgroundColor]="element[column.name]">
+            {{ element[column.name] }}
+          </span>
+          <span *ngIf="column.type == 'date'">
+            {{ element[column.name] | date: 'mediumDate' }}
+          </span>
+          <span *ngIf="column.type == 'dateTime'">
+            {{ element[column.name] | date: 'medium':'UTC +6' }}
+          </span>
+          <span *ngIf="column.type == 'image'">
+            <img [src]="element[column.name]"
+              style="height: 60px; width: 60px;" />
+          </span>
+          <span *ngIf="
+              column.type != 'date' &&
+              column.type != 'dateTime' &&
+              column.type != 'number' &&
+              column.type != 'image' &&
+              column.type != 'color' &&
+              edit !== element[column.name]
+            ">
+            {{ element[column.name] }}
+          </span>
+          <span *ngIf="edit == element[column.name]"
+            contenteditable="true">
+            <mat-form-field>
+              <textarea class="form-control rounded-0"
+                id="exampleFormControlTextarea1"
+                rows="10"
+                [(ngModel)]="element[column.name]"
+                (focusout)="onSave(element)"
+                matInput></textarea>
+            </mat-form-field>
+          </span>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="!tableConfigurations.allowDataEdition">
+      <ng-container *ngFor="let column of tableConfigurations.tableColumns"
+        matColumnDef="{{ column.name }}">
+        <th mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+          {{ column.label }}
+        </th>
+        <td mat-cell
+          *matCellDef="let element"
+          [ngClass]="{
+            active: tableConfigurations.active[element?.id],
+            error: element?.hasError,
+            blurred: tableConfigurations.deleting[element?.id]
+          }"
+          style="max-width: 250px;"
+          [ngStyle]="{'backgroundColor': column.type == 'color'? element[column.name]?.color: '','text-align':column.align ? column.align:'','padding-right':'5px'}">
+          <span *ngIf="column.type == 'number'">
+            {{ element[column.name] | number }}
+          </span>
+          <ng-container *ngIf="column.type == 'star'">
+            <span *ngFor="let n of arrayOne(element[column.name])">
+              ⭐️
+            </span>
+          </ng-container>
+          <span *ngIf="column.type == 'date'">
+            {{ element[column.name] | date: 'mediumDate' }}
+          </span>
+          <span *ngIf="column.type == 'dateTime'">
+            {{ element[column.name] | date: 'medium':'UTC +6' }}
+          </span>
+          <span *ngIf="column.type == 'image'">
+            <img [src]="element[column.name]"
+              style="height: 60px; width: 60px;" />
+          </span>
+          <span *ngIf="column.type == 'color'">
+            {{ element[column.name]?.text }}
+          </span>
+          <span *ngIf="
+              column.type != 'date' &&
+              column.type != 'dateTime' &&
+              column.type != 'number' &&
+              column.type != 'image' &&
+              column.type != 'color' &&
+              column.type != 'star' &&
+              edit !== element[column.name]
+            ">
+            {{ element[column.name] }}
+          </span>
+        </td>
+      </ng-container>
+    </ng-container>
+
+    <!--Action Icons-->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell
+        *matHeaderCellDef></th>
+      <td mat-cell
+        *matCellDef="let tableListItem"
+        [ngClass]="{
+          active: tableConfigurations.active[tableListItem?.id],
+          error: tableListItem?.hasError
+        }">
+        <div class="float-right"
+          role="group"
+          aria-label="Basic example"
+          *ngIf="
+            tableConfigurations.actionIcons.edit ||
+            tableConfigurations.actionIcons.print ||
+            tableConfigurations.actionIcons.delete ||
+            tableConfigurations.actionIcons.more ||
+            tableConfigurations.actionIcons.cancel ||
+            tableConfigurations.actionIcons.download ||
+            tableConfigurations.actionIcons.customPrimary ||
+            actionButtons.length > 0
+          ">
+          <ng-container *appHasPermission="permissions?.customPrimary || ''">
+            <button mat-raised-button
+              class="cursor btn-sm mr-2"
+              title="{{ tableConfigurations.customPrimaryMessage }}"
+              style="
+                color: white;
+                background-color: #00405d;
+                line-height: 30px;
+                padding: 0px 10px !important;
+                font-size: 10px;
+                border-radius: 5px !important;
+              "
+              (click)="customPrimaryItem(tableListItem)"
+              *ngIf="
+                tableConfigurations?.actionIcons?.customPrimary &&
+                !showDelete[tableListItem?.id] &&
+                (tableListItem | showButton: 'customPrimary')
+              ">
+              {{
+              tableListItem.customPrimaryMessage
+              ? tableListItem.customPrimaryMessage
+              : tableConfigurations.customPrimaryMessage
+              }}
+            </button>
+          </ng-container>
+          <a @fadeIn
+            class="cursor text-primary action-button mr-1 btn-float"
+            title="print"
+            (click)="printItem(tableListItem?.id)"
+            style="border-radius: 50%;"
+            *ngIf="
+              tableConfigurations?.actionIcons?.print &&
+              !showDelete[tableListItem?.id]
+            ">
+            <mat-icon>print</mat-icon>
+          </a>
+          <ng-container>
+            <a @fadeIn
+              class="btn btn-sm btn-light action-button mr-1 btn-float"
+              title="view details"
+              (click)="viewItemDetails(tableListItem)"
+              style="border-radius: 50%;"
+              *ngIf="
+                tableConfigurations?.actionIcons?.more &&
+                !showDelete[tableListItem?.id] &&
+                (tableListItem | showButton: 'more')
+              ">
+              <mat-icon>remove_red_eye</mat-icon>
+            </a>
+          </ng-container>
+          <ng-container *appHasPermission="permissions?.edit || ''">
+            <a @fadeIn
+              class="btn btn-sm btn-light action-button mr-1 btn-float"
+              title="edit"
+              (click)="editItem(tableListItem)"
+              style="color: #00405d;"
+              *ngIf="
+                tableConfigurations?.actionIcons?.edit &&
+                !showDelete[tableListItem?.id] &&
+                (tableListItem | showButton: 'edit')
+              ">
+              <mat-icon color="primary">mode_edit</mat-icon>
+            </a>
+          </ng-container>
+          <ng-container *appHasPermission="permissions?.download || ''">
+            <a @fadeIn
+              class="btn btn-sm btn-light action-button mr-1 btn-float"
+              title="Download"
+              (click)="downloadItem(tableListItem)"
+              style="border-radius: 50%;"
+              *ngIf="
+                tableConfigurations?.actionIcons?.download &&
+                !showDownload[tableListItem?.id]
+              ">
+              <mat-icon color="primary">mode_edit</mat-icon>
+            </a>
+          </ng-container>
+          <ng-container *appHasPermission="permissions?.delete || ''">
+            <a @fadeIn
+              class="btn btn-sm btn-danger action-button btn-float"
+              (click)="showDelete[tableListItem?.id] = true"
+              style="color: #fff;"
+              title="delete"
+              *ngIf="
+                tableConfigurations?.actionIcons?.delete &&
+                !showDelete[tableListItem?.id] &&
+                (tableListItem | showButton: 'delete')
+              ">
+              <mat-icon color="warn">delete</mat-icon>
+            </a>
+          </ng-container>
+          <!--extra menu items-->
+          <ng-container *appHasPermission="permissions?.more || ''">
+            <button title="More Actions"
+              *ngIf="
+                actionButtons.length != 0 &&
+                (actionButtons | showOtherButtons: tableListItem)
+              "
+              mat-button
+              [matMenuTriggerFor]="menuItem1">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </ng-container>
+          <mat-menu #menuItem1="matMenu">
+            <ng-container *ngFor="let btn of actionButtons">
+              <ng-container *appHasPermission="permissions[btn.id] || ''">
+                <button mat-menu-item
+                  *ngIf="tableListItem | showButton: btn.id"
+                  [title]="btn.title"
+                  (click)="submitCustomButtom(btn, tableListItem, 'first')">
+                  <i *ngIf="btn.icon"
+                    [className]="btn.icon"
+                    [style.color]="btn.textColor || 'black'"></i>
+                  <img *ngIf="btn.image"
+                    [src]="btn.image"
+                    style="height: 20px;"
+                    [alt]="btn.title" />
+                  {{ btn.label }}
+                </button>
+              </ng-container>
+            </ng-container>
+          </mat-menu>
+
+          <button @fadeIn
+            mat-flat-button
+            (click)="showDelete[tableListItem?.id] = true"
+            title="Cancel"
+            *ngIf="
+              tableConfigurations?.actionIcons?.cancel &&
+              !showDelete[tableListItem?.id]
+            ">
+            <mat-icon>cancel</mat-icon>
+            Cancel
+          </button>
+
+          <!-- Confirmation message for additional button -->
+          <ng-container *ngFor="let btn of actionButtons">
+            <app-loader *ngIf="
+                tableConfigurations.loading &&
+                tableConfigurations.loading[btn.id + tableListItem.id]
+              "
+              [message]="btn.loading_message!"></app-loader>
+            <p *ngIf="showButtonConfirm[btn.id + tableListItem?.id]">
+              {{ btn.confirm_message }}
+            </p>
+            <p *ngIf="showButtonConfirm[btn.id + tableListItem?.id]">
+              <button mat-mini-fab
+                class="cursor"
+                color="warn"
+                *ngIf="
+                  !(
+                    tableConfigurations.loading &&
+                    tableConfigurations.loading[btn.id + tableListItem.id]
+                  )
+                "
+                (click)="submitCustomButtom(btn, tableListItem, 'last')">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-mini-fab
+                class="cursor"
+                color="primary"
+                *ngIf="
+                  !(
+                    tableConfigurations.loading &&
+                    tableConfigurations.loading[btn.id + tableListItem.id]
+                  )
+                "
+                (click)="showButtonConfirm = {}">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </p>
+          </ng-container>
+          <!-- ===================================================== -->
+
+          <!--delete confirmation-->
+          <p @fadeIn
+            *ngIf="
+              showDelete[tableListItem?.id] &&
+              !tableConfigurations.deleting[tableListItem?.id]
+            ">
+            Are You sure?
+          </p>
+          <p @fadeIn
+            *ngIf="
+              showDelete[tableListItem?.id] &&
+              tableConfigurations.deleting[tableListItem?.id]
+            ">
+            <span *ngIf="tableConfigurations?.actionIcons?.cancel">Canceling</span>
+            <span *ngIf="tableConfigurations?.actionIcons?.delete">Deleting</span>
+          </p>
+          <p @fadeIn
+            *ngIf="showDelete[tableListItem?.id]">
+            <mat-progress-bar mode="indeterminate"
+              @fadeIn
+              *ngIf="tableConfigurations.deleting[tableListItem?.id]">
+            </mat-progress-bar>
+            <button mat-mini-fab
+              style="
+                color: white;
+                background-color: red;
+                border-radius: 50% !important;
+              "
+              @fadeIn
+              *ngIf="!tableConfigurations.deleting[tableListItem?.id]"
+              (click)="showDelete = {}">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <button mat-mini-fab
+              style="
+                color: white;
+                background-color: green;
+                border-radius: 50% !important;
+              "
+              @fadeIn
+              *ngIf="!tableConfigurations.deleting[tableListItem?.id]"
+              (click)="deleteItem(tableListItem)">
+              <mat-icon>done</mat-icon>
+            </button>
+          </p>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row
+      *matHeaderRowDef="displayedColumns"
+      style="background-color: rgba(0, 0, 0, 0.1); opacity: 0.8;"></tr>
+    <tr mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [ngClass]="routeAnimationsElements"
+      class="card-1 bg-white/75 dark:bg-black/10"></tr>
+  </table>
+
+  <!--Pagination-->
+  <mat-paginator [ngClass]="{ hidden: !tableConfigurations.allowPagination }"
+    [pageSizeOptions]="[10, 20, 25, 50, 100]">
+  </mat-paginator>
+
+  <ng-template #noData>
+    <table [ngClass]="{ 'table-bordered': tableConfigurations.showBorder }"
+      mat-table
+      [trackBy]="trackByFn"
+      [dataSource]="dataSource"
+      matSort
+      class="mat-elevation-z2">
+      <!-- Number Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>No</th>
+        <td mat-cell
+          *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container *ngFor="let column of tableConfigurations.tableColumns"
+        matColumnDef="{{ column.name }}">
+        <th mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header>
+          {{ column.label }}
+        </th>
+        <td mat-cell
+          *matCellDef="let element">{{ element[column.name] }}</td>
+      </ng-container>
+
+      <!--Action Icons-->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell
+          *matHeaderCellDef></th>
+        <td mat-cell
+          *matCellDef="let tableListItem">&nbsp;</td>
+      </ng-container>
+
+      <!-- Disclaimer column -->
+      <ng-container matColumnDef="disclaimer">
+        <td mat-footer-cell
+          *matFooterCellDef
+          [attr.colspan]="displayedColumns.length">
+          <h5 class="text-center text-muted pt-1"
+            *ngIf="!loading">
+            {{ tableConfigurations.empty_msg || 'No data' }}
+          </h5>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row
+        *matHeaderRowDef="displayedColumns"
+        style="background-color: rgba(0, 0, 0, 0.1); opacity: 0.8;"></tr>
+      <tr mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="routeAnimationsElements"
+        class="card-1"></tr>
+
+      <tr mat-footer-row
+        *matFooterRowDef="['disclaimer']"
+        class="example-second-footer-row"></tr>
+    </table>
+  </ng-template>
+</div>

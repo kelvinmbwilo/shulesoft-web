@@ -10,6 +10,10 @@ module.exports = {
       sans: ["Montserrat", "sans-serif", "appleLogo", ...fontFamily.sans],
     },
     extend: {
+      scale: {
+        '103': '1.03',
+        '102': '1.02',
+      },
       colors: {
         primary: {
           50: "var(--primary-50)",
@@ -74,6 +78,9 @@ module.exports = {
           a200: "var(--contrast-a200)",
           a400: "var(--contrast-a400)",
           a700: "var(--contrast-a700)",
+        },
+        menu: {
+          hover: "var(--menu-hover-color)"
         },
         word: {
           primary: "var(--textcolor)",

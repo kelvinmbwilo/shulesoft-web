@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShuleSoftCommunicationManagerComponent } from './shule-soft-communication-manager.component';
 import {ShuleSoftCommunicationManagerRoutingModule} from './shule-soft-communication-manager-routing.module';
 import { CommunicationManagerMenuComponent } from './communication-manager-menu/communication-manager-menu.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 
@@ -13,7 +14,8 @@ import { CommunicationManagerMenuComponent } from './communication-manager-menu/
   ],
   imports: [
     CommonModule,
-    ShuleSoftCommunicationManagerRoutingModule
+    ShuleSoftCommunicationManagerRoutingModule,
+    SharedModule,
   ]
 })
 export class ShuleSoftCommunicationManagerModule { }

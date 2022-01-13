@@ -144,9 +144,9 @@ body { @apply m-0 font-sans text-word-primary }
   }
 }
 
-.mat-toolbar-row, .mat-toolbar-single-row {
-  height: 80px!important;
-}
+//.mat-toolbar-row, .mat-toolbar-single-row {
+//  height: 80px!important;
+//}
 
 .sidenav-container {
 
@@ -157,8 +157,22 @@ body { @apply m-0 font-sans text-word-primary }
   .mat-expansion-panel-header {
     padding: 0 15px !important;
   }
+  .mat-expansion-panel-header {
+    height: 58px!important;
+  }
 
   .mat-expansion-panel-body {
     padding: 0 0 0 !important;
   }
+
+
+.mat-drawer-inner-container {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow: unset;
+  -webkit-overflow-scrolling: touch;
+
+}
 }

@@ -19,7 +19,16 @@ export class MenuItemsComponent implements OnInit {
     description: string;
     icon?: string;
     image?: string;
+    children?: any[];
   }[] = [];
+  displayMenus: {
+  name: string;
+  route: string[];
+  description: string;
+  icon?: string;
+  image?: string;
+  children?: any[];
+}[] = [];
   @Output() menuClicked = new EventEmitter();
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -31,11 +40,15 @@ export class MenuItemsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.displayMenus = this.menus.map(i => ({
+      ...i,
+      description: i.children?.map(k => k.name).join(', ') || ''
+    }))
   }
 
   goTo(menu: any) {
     if (menu.route) {
-      this.store.dispatch(new Go({path: menu.route}));
+      this.store.dispatch(new Go({path: menu.pathRoute}));
     } else {
       this.menuClicked.emit(menu);
     }
