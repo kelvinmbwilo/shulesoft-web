@@ -9,6 +9,7 @@ import {LocalStorageService} from "../services/local-storage.service";
 import {map} from "rxjs/operators";
 import { menuOptions } from './menu-options';
 import {ActivatedRoute, Router} from "@angular/router";
+import {CommonService} from "../services/common.service";
 
 @Component({
   selector: 'app-main-nav',
@@ -27,15 +28,20 @@ export class MainNavComponent implements OnInit {
   appImage: string = 'stfransis.jpeg';
   menuItems: any[] = [];
   currentMenu: any;
+  helpOpened$: Observable<boolean>;
+  helpText$: Observable<string>;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private offlineManager: OfflineManagerService,
     private localStorageService: LocalStorageService,
     private store: Store<ApplicationState>,
     private route: ActivatedRoute,
-    private router: Router
-  ) {
+    private router: Router,
+    private commonService: CommonService,
 
+  ) {
+    this.helpOpened$ = this.commonService.showHElp1;
+    this.helpText$ = this.commonService.helpText;
   }
 
   ngOnInit() {
@@ -63,4 +69,13 @@ export class MainNavComponent implements OnInit {
     console.log(menu);
     this.menuItems = menu.children;
   }
+
+  check($event: boolean) {
+  }
+
+
+  closeHelp() {
+    this.commonService.closeHelp();
+  }
+
 }

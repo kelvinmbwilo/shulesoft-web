@@ -145,6 +145,25 @@
       </div>
     </div>
   </mat-sidenav>
+
+<!--  Help contents will stay here-->
+  <mat-sidenav
+    (openedChange)="check($event)"
+    class="w-5/12 helpmenu"
+    fixedInViewport="false"
+    #sideNav
+    mode="over"
+    [attr.role]="'dialog'"
+    [opened]="helpOpened$ | async"
+    position="end"
+  >
+    <div class="help-text" *ngIf="(helpOpened$ | async)">
+      <app-view-help
+        (closeHelp)="closeHelp()"
+        [title]="(helpText$ | async) || ''"
+      ></app-view-help>
+    </div>
+  </mat-sidenav>
   <mat-sidenav-content>
     <div class="h-screen">
       <!-- Add Content Here -->

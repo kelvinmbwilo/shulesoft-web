@@ -24,6 +24,7 @@ import {ShowOtherButtonsPipe} from "./components/full-data-table/show-other-butt
 import {HasPermissionDirective} from "./directives/has-permission.directive";
 import {FieldTakenValidatorDirective} from "./directives/field-taken-validator.directive";
 import {ClickOutsideDirective} from "./directives/click-outside.directive";
+import { ViewHelpComponent } from './components/view-help/view-help.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {ClickOutsideDirective} from "./directives/click-outside.directive";
     TopBannerComponent,
     FullDataTableComponent,
     LoaderComponent,
+    ViewHelpComponent,
   ],
   imports: [
     CommonModule,
@@ -91,6 +93,7 @@ import {ClickOutsideDirective} from "./directives/click-outside.directive";
     TopBannerComponent,
     FullDataTableComponent,
     LoaderComponent,
+    ViewHelpComponent,
   ]
 })
 export class SharedModule {
