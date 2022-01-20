@@ -1,20 +1,19 @@
+<app-app-bar [usedInApps]="false" (sidenavToggle)="drawer.toggle()"></app-app-bar>
 
-
-
-
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container !mt-[64px]">
   <mat-sidenav #drawer
                class="sidenav no-print "
                fixedInViewport="false"
                [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="!(isHandset$ | async) && isOpen">
-    <div class="flex flex-row h-screen bg-gray-200 dark:bg-black/10">
-      <div class="bg-gray-200 dark:bg-black/10 w-24">
-        <div class="grid justify-center items-center pt-4 h-[125px]">
-          <img [routerLink]="['']" src="assets/icons/icon-96x96.png" class="rounded-full h-12 w-12">
-        </div>
-        <div class="h-[40px]"></div>
+    <div class="flex h-full bg-gray-200 dark:bg-black/10">
+      <div class="bg-gray-200 dark:bg-black/10 w-24 h-full -mt-10 grid place-items-center">
+<!--        <div class="grid justify-center items-center pt-4 h-[125px]">-->
+<!--&lt;!&ndash;          <img [routerLink]="['']" src="assets/icons/icon-96x96.png" class="rounded-full h-12 w-12">&ndash;&gt;-->
+<!--          <img [routerLink]="['']" src="assets/images/stfransis.jpeg" class="rounded-full h-12 w-12">-->
+<!--        </div>-->
+<!--        <div class="h-[40px]"></div>-->
 
         <div class="grid gap-6 flex-grow items-center justify-center" >
           <div (click)="setMenus(menu)" [routerLinkActive]="['active-main-link']" [routerLink]="menu.route" *ngFor="let menu of menus" class="w-24 border-r-4 border-r-transparent hover:border-r-word-primary group transition grid place-items-center hover:cursor-pointer">
@@ -31,10 +30,12 @@
 <!--        </div>-->
       </div>
       <div class="flex flex-col flex-grow justify-start gap-1 items-center bg-white dark:bg-transparent">
-
-        <div class="w-full grid place-items-center h-[160px] shrink-0">
-          <img src="assets/images/stfransis.jpeg" class="h-[110px] object-cover rounded-3xl dark:opacity-60" >
-        </div>
+<!--          <div class="bg-transparent h-[10px]">-->
+<!--&lt;!&ndash;            {{currentMenu}}&ndash;&gt;-->
+<!--          </div>-->
+<!--        <div class="w-full grid place-items-center h-[160px] shrink-0">-->
+<!--          <img src="assets/images/stfransis.jpeg" class="h-[110px] object-cover rounded-3xl dark:opacity-60" >-->
+<!--        </div>-->
 
         <div class="w-full">
           <mat-divider></mat-divider>
@@ -145,11 +146,7 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="h-screen"
-         style="position: relative">
-      <app-app-bar [usedInApps]="false" (sidenavToggle)="drawer.toggle()"></app-app-bar>
-
-
+    <div class="h-screen">
       <!-- Add Content Here -->
       <div class="p-3 h-screen w-full">
 

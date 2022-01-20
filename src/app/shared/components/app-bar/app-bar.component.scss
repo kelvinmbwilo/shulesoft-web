@@ -86,3 +86,7 @@ button:active:focus, button:focus {
 }
 
 
+::-webkit-input-placeholder {
+  font-style: italic!important;
+  font-size: 12px!important;
+}

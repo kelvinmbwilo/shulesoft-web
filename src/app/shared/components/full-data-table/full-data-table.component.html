@@ -13,12 +13,41 @@
           placeholder="Search" />
       </mat-form-field>
     </div>
+
+
     <div class="excel-button"
       *appHasPermission="permissions?.export || ''">
-      <button mat-raised-button
+      <mat-menu #appMenu="matMenu" class="profile-menu">
+        <button mat-menu-item>
+          <mat-icon>picture_as_pdf</mat-icon>
+          PDF
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>content_copy</mat-icon>
+          COPY
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>insert_drive_file</mat-icon>
+          EXCEL
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>insert_drive_file</mat-icon>
+          CSV
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>print</mat-icon>
+          Print
+        </button>
+      </mat-menu>
+      <button [matMenuTriggerFor]="appMenu" mat-raised-button
         *ngIf="!tableConfigurations.hideExport">
-        <mat-icon style="margin-bottom: 5px; color: green;">insert_drive_file</mat-icon>
+        <mat-icon style="margin-bottom: 5px; color: green;">file_download</mat-icon>
         Export
+        <mat-icon style="margin-bottom: 5px; color: green;">arrow_drop_down</mat-icon>
       </button>
     </div>
   </div>

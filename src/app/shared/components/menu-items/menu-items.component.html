@@ -1,8 +1,8 @@
 
-  <div class="p-10 grid gap-10 sm:grid-cols-2 md:grid-cols-3">
+  <div class="p-10 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
     <div
       [ngClass]="routeAnimationsElements"
-      class="hover:bg-secondary-100 transition group flex flex-row items-center gap-10 border-sm p-8 border-primary-100 rounded-3xl hover:cursor-pointer hover:shadow-2xl shadow-xl h-36"
+      class="hover:bg-secondary-100 transition group flex flex-row items-center gap-10 border-sm p-8 border-primary-100 rounded-3xl hover:cursor-pointer hover:shadow-2xl shadow-xl min-h-36"
       *ngFor="let menu of menus"
       (click)="goTo(menu)"
     >
@@ -12,7 +12,7 @@
       </div>
       <div>
         <h2 class="text-word-primary text-xl font-black mb-1">{{menu.name}}</h2>
-        <p class="text-word-secondary lead">{{menu.description}}</p>
+        <p class="text-word-secondary">{{menu.description}}</p>
       </div>
     </div>
   </div>

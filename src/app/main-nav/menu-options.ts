@@ -207,6 +207,22 @@ export  const menuOptions = [
       {name: 'Online Discussion', route: 'online-discussion'},
     ]
   },
+  {
+    name: 'Settings',
+    shortName: 'Settings',
+    route: ['', 'summary',  'digital-learning'],
+    pathRoute: ['', 'module',  'digital-learning', 'files'],
+    description: 'Files management, Class notes, Video live streaming, Online discussion, Home package, etc',
+    icon: 'settings',
+    children: [
+      {name: 'Files', route: 'files'},
+      {name: 'Live Studies', route: 'live-studies'},
+      {name: 'Class Notes', route: 'class-notes'},
+      {name: 'Online Exams', route: 'online-exams'},
+      {name: 'Home Packages', route: 'home-packages'},
+      {name: 'Online Discussion', route: 'online-discussion'},
+    ]
+  },
   //
   // {
   //   name: 'Adjustments',

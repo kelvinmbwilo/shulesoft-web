@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { formSize, tableSize } from '../../animations/router-animation';
+import {formSize, ROUTE_ANIMATIONS_ELEMENTS, tableSize} from '../../animations/router-animation';
 
 @Component({
   selector: 'app-shared-layout',
@@ -29,6 +29,7 @@ export class SharedLayoutComponent implements OnInit {
   @Output() closeDetails = new EventEmitter();
   @Input() animationSize: 'eighty' | 'sixty' | 'largeForm' | 'full' = 'sixty';
   @Input() image: any;
+  routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   constructor() { }
 
   ngOnInit() {

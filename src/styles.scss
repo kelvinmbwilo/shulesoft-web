@@ -176,3 +176,11 @@ body { @apply m-0 font-sans text-word-primary }
 
 }
 }
+
+
+button.add-item {
+  position: fixed;
+  bottom: 40px;
+  right: 10px;
+  margin-left: 5px;
+}

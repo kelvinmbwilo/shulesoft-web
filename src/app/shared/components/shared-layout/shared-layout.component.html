@@ -66,16 +66,25 @@
   </div>
 </div>
 
-<!-- <ng-container *appHasPermission="addPermission || ''">
+ <ng-container *appHasPermission="addPermission || ''">
   <div class="col-md-12"
     *ngIf="!viewDetails">
-    <a style="z-index: 100;"
-      *ngIf="!hideAdd"
-      title="Add"
-      (click)="add()"
-      mat-fab
-      class="add-item !bg-first">
-      <mat-icon>add</mat-icon>
-    </a>
+    <button @fadeIn
+            [ngClass]="routeAnimationsElements"
+            *ngIf="!hideAdd && !viewDetails"
+            mat-raised-button
+            (click)="add()"
+            style="padding-right: 25px; padding-bottom: 5px; padding-top: 5px;"
+            class="add-item !text-white dark:!text-word-primary !bg-gradient-to-r !from-primary-900 !to-primary-500 !rounded-3xl !shadow-5xl">
+      <mat-icon>add</mat-icon> Create
+    </button>
+<!--    <a style="z-index: 100;"-->
+<!--      *ngIf="!hideAdd"-->
+<!--      title="Add"-->
+<!--      (click)="add()"-->
+<!--      mat-fab-->
+<!--      class="add-item !bg-first">-->
+<!--      <mat-icon>add</mat-icon>-->
+<!--    </a>-->
   </div>
-</ng-container> -->
+</ng-container>

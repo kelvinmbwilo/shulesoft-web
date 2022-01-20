@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Store} from "@ngrx/store";
 import { ApplicationState } from 'src/app/store';
+import {ActionButton} from "../../../shared/components/full-data-table/action-button.model";
 
 @Component({
   selector: 'app-classes',
@@ -13,7 +14,7 @@ export class ClassesComponent implements OnInit {
   tableConfigurations = {
     tableColumns: [
       { name: 'class', label: 'Class' },
-      { name: 'classNumeric', label: 'Class Numeric' },
+      { name: 'classNumeric', label: 'Class Numeric', type: 'number' },
       { name: 'teacherName', label: 'Teacher Name' },
       { name: 'student', label: 'Student' },
       { name: 'note', label: 'Note' },
@@ -27,7 +28,7 @@ export class ClassesComponent implements OnInit {
     actionIcons: {
       edit: true,
       delete: true,
-      more: false,
+      more: true,
       print: false,
       customPrimary: false,
     },
@@ -40,13 +41,40 @@ export class ClassesComponent implements OnInit {
   };
   viewType = '';
   classes: any[] = [
-    { class: 'Grade One', classNumeric: '1', teacherName: 'Lucy Obutu', student: '2', note: '', },
+    { class: 'Grade One', classNumeric: '1000000', teacherName: 'Lucy Obutu', student: '2', note: '', actionIcons: {edit: false} },
     { class: 'Grade Two', classNumeric: '2', teacherName: 'Faraje Elisha', student: '24', note: '', },
     { class: 'Grade Three', classNumeric: '3', teacherName: 'Anold Jonals Kelvin', student: '22', note: '', },
     { class: 'Grade Four', classNumeric: '4', teacherName: 'Agnes Samson Salum', student: '24', note: '', },
     { class: 'Grade Five', classNumeric: '5', teacherName: 'Richard Charles', student: '23', note: '', },
     { class: 'Grade Six', classNumeric: '6', teacherName: 'Paul Gosbert', student: '21', note: '', },
     { class: 'Grade Seven', classNumeric: '7', teacherName: 'Faith Kalembo', student: '21', note: '', },
+  ];
+
+  buttons: ActionButton[] = [
+    {
+      id: 'enable',
+      label: 'Enable',
+      title: 'Enable User',
+      class: 'btn btn-clear btn-sm',
+      icon: '',
+      action: 'enable'
+    },
+    {
+      id: 'disable',
+      label: 'Disable',
+      title: 'Disable User',
+      class: 'btn btn-clear btn-sm',
+      icon: '',
+      action: 'disable'
+    },
+    {
+      id: 'changePassword',
+      label: 'Change Password',
+      title: 'Change Password',
+      class: 'btn btn-clear btn-sm',
+      icon: '',
+      action: 'changePassword'
+    },
   ];
   // @ts-ignore
   constructor(
